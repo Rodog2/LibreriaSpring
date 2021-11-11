@@ -78,18 +78,43 @@ public class AutorControlador {
             return "modificarAutores.html";
         }
     }
-    @GetMapping("/bajaAutores")
+    @GetMapping("/bajaAutores/{id}")
     public String baja(ModelMap modelo,@PathVariable String id){
+       
         try {
             autorServicio.bajaAutorId(id);
             modelo.put("titulo","Se ha dado de baja el autor correctamente");
             return "/exito";
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
-            return "bajaAutores.html";
+            return "listarAutores.html";
         }
     }
-    
+       @GetMapping("/altaAutores/{id}")
+    public String alta(ModelMap modelo,@PathVariable String id){
+       
+        try {
+            autorServicio.altaAutorId(id);
+            modelo.put("titulo","Se ha dado de baja el autor correctamente");
+            return "/exito";
+        } catch (ErrorServicio ex) {
+            modelo.put("error", ex.getMessage());
+            return "listarAutores.html";
+        }
+    }
+//     @PostMapping("/bajaAutores")
+//    public String baja(ModelMap modelo,@PathVariable String id){
+//       
+//        try {
+//            autorServicio.bajaAutorId(id);
+//            modelo.put("titulo","Se ha dado de baja el autor correctamente");
+//            return "/exito";
+//        } catch (ErrorServicio ex) {
+//            modelo.put("error", ex.getMessage());
+//            return "listarAutores.html";
+//        }
+//    }
+//    
 //      @PostMapping("/modificarAutor/{id}")
 //    public String modificar(ModelMap modelo, @PathVariable String id, @RequestParam String nombre) {
 //

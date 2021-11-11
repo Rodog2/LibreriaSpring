@@ -15,10 +15,10 @@
       <a class="navbar-brand" href="/">Volver a página principal</a>
     </div>
   </nav>
- <p>parrafo de prueba</p>
     <h1>
         LISTADO DE AUTORES
     </h1>
+ <p th:if="${error!=null}" th:text="${error}" class="errorMensaje"></p>
     <table class="table table-dark table-striped">
         <thead>
           <tr>
@@ -40,8 +40,8 @@
             </td>
 
             <td>
-                <a th:if="${autor.alta}" th:href="@{/autor/modificarAutores/__${autor.id}__}" <button type="button" class="btn btn-outline-danger">Baja</button></a>
-                <a th:unless="${autor.alta}" th:href="@{/autor/modificarAutores/__${autor.id}__}" <button type="button" class="btn btn-outline-success">Alta</button></a>
+                <a th:if="${autor.alta}" th:href="@{/autor/bajaAutores/__${autor.id}__}" <button type="button" class="btn btn-outline-danger">Dar de Baja</button></a>
+                <a th:unless="${autor.alta}" th:href="@{/autor/altaAutores/__${autor.id}__}" <button type="button" class="btn btn-outline-success">Dar de Alta</button></a>
             </td>
           </tr>
         </tbody>

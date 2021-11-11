@@ -65,6 +65,16 @@ public class AutorServicio {
             autor= respuesta.get();
         }
         autor.setAlta(false);
+        autorRepositorio.save(autor);
+    }
+      public void altaAutorId(String id) throws ErrorServicio{
+        Autor autor= new Autor();
+        Optional<Autor> respuesta = autorRepositorio.findById(id);
+        if(respuesta.isPresent()){
+            autor= respuesta.get();
+        }
+        autor.setAlta(true);
+        autorRepositorio.save(autor);
     }
     
     public Autor buscarAutorPorId(String id){
