@@ -19,19 +19,20 @@
     </div>
   </nav>
   <div>
-    <img src="../static/images/liberia2.jpg" class="img-fluid" >
+    <img src="../static/images/liberia2.jpg" class="img-fluid">
   </div>
-  
+
   <h2>Bienvenido a la sección de ingreso de libros nuevos</h1>
     <div class="container">
       <div class="card card-container">
-        <form class="row g-12 form-group col-sm-12 col-form-label text-center" action="/libro/ingresarLibro" method="post">
-         
+        <form class="row g-12 form-group col-sm-12 col-form-label text-center" action="/libro/ingresarLibro"
+          method="post">
+
           <div class="col-md-6 form-group">
             <label for="validationDefault01" class="form-label text-lg col-md-12">Titulo del Libro</label>
             <input type="text" class="form-control text-lg-end" id="validationDefault01" value="" required>
           </div>
-         
+
           <div class="col-md-6 form-group">
             <label for="validationDefault02" class="form-label">Código ISBN</label>
             <input type="text" class="form-control" id="validationDefault02" value="" required>
@@ -43,65 +44,68 @@
           </div>
 
           <div class="col-md-6">
-              <label for="validationDefault02" class="form-label">Cantidad Ejemplares</label>
-              <input type="text" class="form-control" id="validationDefault02" value="" required>
-            </div>
-           
-            <div class="dropdown dropend col-md-6">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        Autores existentes  </button>
-      <ul class="dropdown-menu pb-4" aria-labelledby="dropdownMenuButton1" th:each=" autor : ${autores}">
-        <li><a class="dropdown-item pb-4" href="#" th.text="${autor.nombre}"></a></li>
-      </ul>
-    </div>
-
-    <div class="dropdown dropend col-md-6 opacity-100">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-        Cargar nuevo Autor
-      </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <li>
-          <div class="col-md-6">
-            <label for="validationDefault02" class="form-label">Nombre del autor</label>
-            <input type="text" class="form-control" id="validationDefault02" name="nombre" th:value="${nombreAutor}">
+            <label for="validationDefault02" class="form-label">Cantidad Ejemplares</label>
+            <input type="text" class="form-control" id="validationDefault02" value="" required>
           </div>
-        </li>
-      </ul>
-    </div>
 
-    <div class="dropdown dropend col-md-6"> 
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-      Editoriales existentes  </button>
-    <ul class="dropdown-menu pb-4" aria-labelledby="dropdownMenuButton1" th:each=" editorial : ${editoriales}">
-      <li><a class="dropdown-item pb-4" href="#" th.text="${editorial.nombre}"></a></li>
-    </ul>
-  </div>
-  <div class="dropdown dropend col-md-6">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-      Cargar nueva Editorial</button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-      <li>
-        <div class="col-md-6">
-          <label for="validationDefault02" class="form-label">Nombre de la editorial</label>
-          <input type="text" class="form-control" id="validationDefault02" name="nombreEditorial" th:value="${nombreEditorial}">
-        </div>
-      </li>
-    </ul>
-  </div>
-          
-    
+          <div class="col-md-6">
+            <p style="text-align: left;">Autores Cargados</p>
+            <select class="form-select" name="nombreAutor" aria-label="Default select example">
+              <option selected th:each="autor: ${autores}" th:text="${autor.nombre}"></option>
+            </select>
+          </div>
+
+          <div class="dropdown dropend col-md-6 opacity-100">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Cargar nuevo Autor
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <li>
+                <div class="col-md-6">
+                  <label for="validationDefault02" class="form-label">Nombre del autor</label>
+                  <input type="text" class="form-control" id="validationDefault02" name="nombreAutor"
+                    th:value="${nombreAutor}">
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md-6">
+            <p style="text-align: left;">Editoriales Cargadas</p>
+            <select class="form-select" name="nombreEditorial" aria-label="Default select example">
+              <option selected th:each="editorial : ${editoriales}" th:text="${editorial.nombre}"></option>
+            </select>
+
+          </div>
+          <div class="dropdown dropend col-md-6">
+            <button class="btn btn-secondary dropdown-toggle lef" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Cargar nueva Editorial</button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <li>
+                <div class="col-md-6">
+                  <label for="validationDefault02" class="form-label">Nombre de la editorial</label>
+                  <input type="text" class="form-control" id="validationDefault02" name="nombreEditorial"
+                    th:value="${nombreEditorial}">
+                </div>
+              </li>
+            </ul>
+          </div>
+
+
           <div class="col-12">
             <button class="btn btn-primary" type="submit">Cargar Libro</button>
           </div>
         </form>
       </div>
     </div>
-   
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"></script>
 </body>
 
 </html>
