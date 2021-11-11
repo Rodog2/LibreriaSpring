@@ -6,9 +6,7 @@ import edu.egg.libreria.errores.ErrorServicio;
 import edu.egg.libreria.repositorios.AutorRepositorio;
 import edu.egg.libreria.servicios.AutorServicio;
 import java.util.List;
-import java.util.logging.Level;
-import org.hibernate.annotations.Parameter;
-import org.jboss.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import sun.util.logging.PlatformLogger;
+
 
 @Controller
 @RequestMapping("/autor")

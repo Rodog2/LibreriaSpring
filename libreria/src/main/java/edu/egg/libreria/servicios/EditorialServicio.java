@@ -4,6 +4,7 @@ package edu.egg.libreria.servicios;
 import edu.egg.libreria.entidades.Editorial;
 import edu.egg.libreria.errores.ErrorServicio;
 import edu.egg.libreria.repositorios.EditorialRepositorio;
+import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,11 +54,55 @@ public class EditorialServicio {
            return null;
         } else return editorial;
     }
+     public List<Editorial> listarEditorial() throws ErrorServicio{
+         
+        return editRepos.listarEditorial();
+    }
+ 
+    @Transactional
+    public void bajaEditorialId(String id) throws ErrorServicio{
+        Editorial editorial= new Editorial();
+        Optional<Editorial> respuesta = editRepos.findById(id);
+        if(respuesta.isPresent()){
+            editorial= respuesta.get();
+        }
+        editorial.setAlta(false);
+        editRepos.save(editorial);
+    }
+    @Transactional
+      public void altaEditorialId(String id) throws ErrorServicio{
+         Editorial editorial= new Editorial();
+        Optional<Editorial> respuesta = editRepos.findById(id);
+        if(respuesta.isPresent()){
+            editorial= respuesta.get();
+        }
+        editorial.setAlta(true);
+        editRepos.save(editorial);
+    }
     
+    public Editorial buscarEditorialPorId(String id){
+        Editorial editorial = new Editorial();
+        Optional<Editorial> respuesta = editRepos.findById(id);
+        if(respuesta.isPresent()){
+            editorial = respuesta.get();
+        }
+        return editorial;
+    }
     public void validar(String nombre) throws ErrorServicio{
         if(nombre ==null){
             throw new ErrorServicio("El nombre de la editorial no puede estar vacio");
         }
+    }
+    
+     public Editorial verEditorialRepetida(String nombreEditorial) throws ErrorServicio{
+         Editorial editorial;
+        try {
+             editorial = buscarEditorialPorNombre(nombreEditorial);
+        } catch (ErrorServicio e) {
+            agregarEditorial(nombreEditorial);
+            editorial = buscarEditorialPorNombre(nombreEditorial);
+    }
+        return editorial;
     }
     
 }

@@ -80,7 +80,7 @@
     </div>
   </section>
   <h2>Bienvenido a la sección de ingreso de libros nuevos</h1>
-    <form class="row g-3">
+    <form class="row g-3" action="/libro/ingresarLibro" method="post">
       <div class="col-md-4">
         <label for="validationDefault01" class="form-label">Titulo del Libro</label>
         <input type="text" class="form-control" id="validationDefault01" value="" required>
@@ -97,6 +97,13 @@
           <label for="validationDefault02" class="form-label">Cantidad de Ejemplares</label>
           <input type="text" class="form-control" id="validationDefault02" value="" required>
         </div>
+        <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Autores  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" th:each=" autor : ${autores}">
+    <li><a class="dropdown-item" href="#" th.text="${autor.nombre}"></a></li>
+  </ul>
+</div>
         <div class="col-md-4">
           <label for="validationDefault02" class="form-label">Nombre del autor</label>
           <input type="text" class="form-control" id="validationDefault02" value="" required>

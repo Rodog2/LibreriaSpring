@@ -28,8 +28,8 @@ public class LibroServicio {
     @Transactional
     public void cargarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, String nombreAutor, String nombreEditorial) throws ErrorServicio{
         validar(isbn, titulo, anio, ejemplares, nombreAutor, nombreEditorial);
-        Autor autor = validarAutor(nombreAutor);
-        Editorial editorial = validarEditorial(nombreEditorial);
+        Autor autor = autorServicio.verAutorRepetido(nombreAutor);
+        Editorial editorial = editorialServicio.verEditorialRepetida(nombreEditorial);
         Libro libro = new Libro();
         libro.setIsbn(isbn);
         libro.setTitulo(titulo);
@@ -94,27 +94,9 @@ public class LibroServicio {
         }
     }
     
-    public Autor validarAutor(String nombreAutor) throws ErrorServicio{
-        Autor autor;
-        try {
-             autor = autorServicio.buscarAutorPorNombre(nombreAutor);
-        } catch (ErrorServicio e) {
-            autorServicio.crearAutor(nombreAutor);
-            autor = autorServicio.buscarAutorPorNombre(nombreAutor);
-    }
-        return autor;
-}
     
-    public Editorial validarEditorial(String nombreEditorial) throws ErrorServicio{
-         Editorial editorial;
-        try {
-             editorial = editorialServicio.buscarEditorialPorNombre(nombreEditorial);
-        } catch (ErrorServicio e) {
-            editorialServicio.agregarEditorial(nombreEditorial);
-            editorial = editorialServicio.buscarEditorialPorNombre(nombreEditorial);
-    }
-        return editorial;
-    }
+    
+   
     
     
 }

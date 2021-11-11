@@ -32,7 +32,7 @@
         <div class="primario">
             <h2>Bienvenido a la sección de ingreso de editoriales nuevas</h1>
   <p th:if="${error != null}" th:text="${error}" class="errorMensaje"></p>
-  <form action="/autor/ingresarAutores" method="post" class="row g-3">
+  <form action="/editorial/ingresarEditorial" method="post" class="row g-3">
       <div class="col-md-4">
         <label class="form-label">Nombre de la editorial</label>
         <input type="text" class="form-control" name="nombre" th:value="${nombre}">

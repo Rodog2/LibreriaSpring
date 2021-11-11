@@ -37,7 +37,7 @@
   <p th:if="${error}!=null">Lo siento, algo ha salido mal</p>
   <h3>Editorial a modificar:</h3>  
   <p th:text="${editorial.nombre}"></p>  
-  <form class="row g-3" th:action="@{/editorial/modificarEditoriales/__${editorial.id}__}" method="post">
+  <form class="row g-3" th:action="@{/editorial/modificarEditorial/__${editorial.id}__}" method="post">
        <div class="col-md-4">     
         <input hidden th:value="${id}" name="id">
         <label for="validationDefault01" class="form-label">Ingrese el nuevo nombre de la editorial</label>

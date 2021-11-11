@@ -3,12 +3,9 @@ package edu.egg.libreria.controladores;
 
 import edu.egg.libreria.entidades.Editorial;
 import edu.egg.libreria.errores.ErrorServicio;
-import edu.egg.libreria.repositorios.EditorialRepositorio;
+
 import edu.egg.libreria.servicios.EditorialServicio;
 import java.util.List;
-import java.util.logging.Level;
-import org.hibernate.annotations.Parameter;
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import sun.util.logging.PlatformLogger;
+
 
 @Controller
 @RequestMapping("/editorial")
@@ -25,8 +22,7 @@ public class EditorialControlador {
 
     @Autowired
     private EditorialServicio editorialServicio;
-    @Autowired
-    private EditorialRepositorio editorialRepositorio;
+   
     
      @GetMapping("/ingresarEditorial")
     public String ingresoEditorial() {
@@ -36,7 +32,7 @@ public class EditorialControlador {
      @PostMapping("/ingresarEditorial")
     public String ingresarEditorial(ModelMap modelo, @RequestParam String nombre) {
         try {
-            autorServicio.crearEditorial(nombre);
+            editorialServicio.agregarEditorial(nombre);
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
@@ -49,16 +45,16 @@ public class EditorialControlador {
     
      @GetMapping("/listarEditorial")
     public String listaEditorial(ModelMap modelo) {
-        List<Editorial> editoriales;
+       
         try {
-            editoriales = editorialServicio.listarEditorial();
+            List<Editorial> editoriales = editorialServicio.listarEditorial();
             modelo.put("editoriales", editoriales);
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
-            return "listarEditorial.html";
+            return "index.html";
         }
       
-        return "listarEditoriales.html";
+        return "listarEditorial.html";
     }
     @GetMapping("/modificarEditorial/{id}")
     public String modificarEditorial(ModelMap modelo,@PathVariable String id){
@@ -94,8 +90,8 @@ public class EditorialControlador {
     public String alta(ModelMap modelo,@PathVariable String id){
        
         try {
-            autorServicio.altaEditorialId(id);
-            modelo.put("titulo","Se ha dado de baja la editorial correctamente");
+            editorialServicio.altaEditorialId(id);
+            modelo.put("titulo","Se ha dado de alta la editorial correctamente");
             return "/exito";
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());

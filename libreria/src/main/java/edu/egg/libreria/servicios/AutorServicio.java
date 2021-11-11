@@ -57,7 +57,7 @@ public class AutorServicio {
             autor.setAlta(false);
         }
     }
-    
+    @Transactional
     public void bajaAutorId(String id) throws ErrorServicio{
         Autor autor= new Autor();
         Optional<Autor> respuesta = autorRepositorio.findById(id);
@@ -67,6 +67,7 @@ public class AutorServicio {
         autor.setAlta(false);
         autorRepositorio.save(autor);
     }
+    @Transactional
       public void altaAutorId(String id) throws ErrorServicio{
         Autor autor= new Autor();
         Optional<Autor> respuesta = autorRepositorio.findById(id);
@@ -89,9 +90,18 @@ public class AutorServicio {
     public void validar(String nombre) throws ErrorServicio{
         if(nombre ==null){
             throw new ErrorServicio("El nombre del autor no puede estar vacío");
-        }
-       
-        
+        } 
     }
+    
+    public Autor verAutorRepetido(String nombreAutor) throws ErrorServicio{
+        Autor autor;
+        try {
+             autor = buscarAutorPorNombre(nombreAutor);
+        } catch (ErrorServicio e) {
+            crearAutor(nombreAutor);
+            autor = buscarAutorPorNombre(nombreAutor);
+    }
+        return autor;
+}
     
 }

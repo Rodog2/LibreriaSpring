@@ -36,12 +36,12 @@
                  <i th:unless="${editorial.alta}" class="fa fa-circle" style="color:red;">No</i>
             </td>
             <td>
-                <a th:href="@{/editorial/modificarEditoriales/__${editorial.id}__}" <button type="button" class="btn btn-light">Modificar</button></a>
+                <a th:href="@{/editorial/modificarEditorial/__${editorial.id}__}" <button type="button" class="btn btn-light">Modificar</button></a>
             </td>
 
             <td>
-                <a th:if="${editorial.alta}" th:href="@{/editorial/bajaEditoriales/__${editorial.id}__}" <button type="button" class="btn btn-outline-danger">Dar de Baja</button></a>
-                <a th:unless="${editorial.alta}" th:href="@{/editorial/Editoriales/__${editorial.id}__}" <button type="button" class="btn btn-outline-success">Dar de Alta</button></a>
+                <a th:if="${editorial.alta}" th:href="@{/editorial/bajaEditorial/__${editorial.id}__}" <button type="button" class="btn btn-outline-danger">Dar de Baja</button></a>
+                <a th:unless="${editorial.alta}" th:href="@{/editorial/altaEditorial/__${editorial.id}__}" <button type="button" class="btn btn-outline-success">Dar de Alta</button></a>
             </td>
           </tr>
         </tbody>
