@@ -43,16 +43,18 @@ public class LibroServicio {
         libroRepositorio.save(libro);
     }
     @Transactional
-    public void modificarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, String nombreAutor, String nombreEditorial) throws ErrorServicio{
-        validar(isbn, titulo, anio, ejemplares, nombreAutor, nombreEditorial);
-        Libro libro = libroRepositorio.BuscarLibroPorNombre(titulo);
+    public void modificarLibro(String id, Long isbn, String titulo, Integer anio, Integer ejemplares) throws ErrorServicio{
+        validarModificacion(isbn, titulo, anio, ejemplares);
+        Libro libro = new Libro();
+        Optional<Libro> respuesta = libroRepositorio.findById(id);
+        if(respuesta.isPresent()){
+            libro = respuesta.get();
+        }
+        libro.setTitulo(titulo);
         libro.setIsbn(isbn);
         libro.setAnio(anio);
         libro.setEjemplares(ejemplares);
-        Editorial editorial = editorialServicio.buscarEditorialPorNombre(nombreEditorial);
-        libro.setEditorial(editorial);
-        Autor autor = autorServicio.buscarAutorPorNombre(nombreAutor);
-        libro.setAutor(autor);
+        
         libroRepositorio.save(libro);
         
     }
@@ -71,7 +73,35 @@ public class LibroServicio {
         return listaLibros;
     }
     
+    @Transactional
+    public void bajaLibroId(String id) throws ErrorServicio{
+        Libro libro= new Libro();
+        Optional<Libro> respuesta = libroRepositorio.findById(id);
+        if(respuesta.isPresent()){
+            libro= respuesta.get();
+        }
+        libro.setAlta(false);
+        libroRepositorio.save(libro);
+    }
+    @Transactional
+      public void altaLibroId(String id) throws ErrorServicio{
+      Libro libro= new Libro();
+        Optional<Libro> respuesta = libroRepositorio.findById(id);
+        if(respuesta.isPresent()){
+            libro= respuesta.get();
+        }
+        libro.setAlta(true);
+        libroRepositorio.save(libro);
+    }
     
+    public Libro buscarLibroPorId(String id){
+      Libro libro= new Libro();
+        Optional<Libro> respuesta = libroRepositorio.findById(id);
+        if(respuesta.isPresent()){
+            libro = respuesta.get();
+        }
+        return libro;
+    }
     public void validar(Long isbn, String titulo, Integer anio, Integer ejemplares, String nombreAutor, String nombreEditorial) throws ErrorServicio{
     
         if(isbn==null){
@@ -92,6 +122,20 @@ public class LibroServicio {
         if(nombreEditorial==null){
             throw new ErrorServicio("Debe indicar una editorial");
         }
+    }
+    public void validarModificacion(Long isbn, String titulo, Integer anio, Integer ejemplares) throws ErrorServicio{
+        if(isbn==null){
+            throw new ErrorServicio("El Isbn no puede estar vacío");
+        }
+        if(titulo==null){
+            throw new ErrorServicio("El nombre no puede estar vacío");
+        }
+        if(anio==null){
+            throw new ErrorServicio("El año no puede estar vacío");
+        }
+        if(ejemplares==null){
+            throw new ErrorServicio("Los ejemplares no pueden cer 0");
+        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
     }
     
     

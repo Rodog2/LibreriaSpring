@@ -23,35 +23,37 @@
   </div>
 
   <h2>Bienvenido a la sección de ingreso de libros nuevos</h1>
+  <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
     <div class="container">
       <div class="card card-container">
-        <form class="row g-12 form-group col-sm-12 col-form-label text-center" action="/libro/ingresarLibro"
-          method="post">
+        <form action="/libro/ingresarLibro"
+          method="post" class="row g-12 form-group col-sm-12 col-form-label text-center">
 
           <div class="col-md-6 form-group">
             <label for="validationDefault01" class="form-label text-lg col-md-12">Titulo del Libro</label>
-            <input type="text" class="form-control text-lg-end" id="validationDefault01" value="" required>
+            <input type="text" class="form-control text-lg-end" id="validationDefault01" name="titulo" th:value="${titulo}">
           </div>
 
           <div class="col-md-6 form-group">
             <label for="validationDefault02" class="form-label">Código ISBN</label>
-            <input type="text" class="form-control" id="validationDefault02" value="" required>
+            <input type="text" class="form-control" id="validationDefault02" name="isbn" th:value="${isbn}">
           </div>
 
           <div class="col-md-6">
             <label for="validationDefault02" class="form-label">Año de Edicion</label>
-            <input type="text" class="form-control" id="validationDefault02" value="" required>
+            <input type="text" class="form-control" id="validationDefault02" name="anio" th:value="${anio}">
           </div>
 
           <div class="col-md-6">
             <label for="validationDefault02" class="form-label">Cantidad Ejemplares</label>
-            <input type="text" class="form-control" id="validationDefault02" value="" required>
+            <input type="text" class="form-control" id="validationDefault02" name="ejemplares" th:value="${ejemplares}">
           </div>
 
           <div class="col-md-6">
-            <p style="text-align: left;">Autores Cargados</p>
+            <p style="text-align: center;">Autores Cargados</p>
             <select class="form-select" name="nombreAutor" aria-label="Default select example">
               <option selected th:each="autor: ${autores}" th:text="${autor.nombre}"></option>
+              <option>El autor no se encuentra en la lista</option>
             </select>
           </div>
 
@@ -72,7 +74,7 @@
           </div>
 
           <div class="col-md-6">
-            <p style="text-align: left;">Editoriales Cargadas</p>
+            <p style="text-align: center;">Editoriales Cargadas</p>
             <select class="form-select" name="nombreEditorial" aria-label="Default select example">
               <option selected th:each="editorial : ${editoriales}" th:text="${editorial.nombre}"></option>
             </select>
