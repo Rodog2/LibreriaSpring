@@ -4,7 +4,9 @@ h1{
     font-stretch: expanded;
 
 }
-
+.bodyBaja{
+    background-color: graytext
+}
 .form-control{
     font-size: 0.5em;
 }

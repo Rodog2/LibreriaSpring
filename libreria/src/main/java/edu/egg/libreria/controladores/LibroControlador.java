@@ -109,5 +109,21 @@ public class LibroControlador {
             return "listarAutores.html";
         }
     }
+    @GetMapping("/borradoLibro")
+    public String borradoLibro(){
+        return "bajaLibro.html";
+    }
+    
+    @PostMapping("borrarLibro")
+    public String borrarLibro(ModelMap modelo, @RequestParam String titulo){
+        try {
+            libroServicio.borrarLibro(titulo);
+            modelo.put("titulo", "Se ha borrado el libro correctamente");
+            return "exito.html";
+        } catch (ErrorServicio ex) {
+            modelo.put("error", ex.getMessage());
+            return "index.html";
+        }
+    }
     
 }

@@ -6,6 +6,8 @@ import edu.egg.libreria.errores.ErrorServicio;
 
 import edu.egg.libreria.servicios.EditorialServicio;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -98,4 +100,20 @@ public class EditorialControlador {
             return "listarEditorial.html";
         }
     }
+//    @GetMapping("/borradoEditorial")
+//    public String borradoEditorial(){
+//        return "bajaEditorial.html";
+//    }
+    @GetMapping("/borradoEditorial/{id}")
+    public String borradoEditorial(ModelMap modelo, @PathVariable String id){
+        try {
+            editorialServicio.eliminarEditorial(id);
+            modelo.put("titulo", "Se ha borrado la editorial correctamente");
+            return "exito.html";
+        } catch (ErrorServicio ex) {
+            modelo.put("error", ex.getMessage());
+            return "listarEditorial.html";
+        }
+    }
+    
 }

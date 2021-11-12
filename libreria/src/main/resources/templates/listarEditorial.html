@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,6 +26,8 @@
             <th scope="col">Alta</th>
             <th scope="col">Modificar</th>
             <th scope="col">Alta/Baja</th>
+            <th scope="col">Borrar</th>
+            
           </tr>
         </thead>
         <tbody th:each="editorial : ${editoriales}">
@@ -41,7 +43,11 @@
 
             <td>
                 <a th:if="${editorial.alta}" th:href="@{/editorial/bajaEditorial/__${editorial.id}__}" <button type="button" class="btn btn-outline-danger">Dar de Baja</button></a>
-                <a th:unless="${editorial.alta}" th:href="@{/editorial/altaEditorial/__${editorial.id}__}" <button type="button" class="btn btn-outline-success">Dar de Alta</button></a>
+                <a th:unless="${editorial.alta}" th:href="@{/editorial/altaEditorial/__${editorial.id}}__" <button type="button" class="btn btn-outline-success">Dar de Alta</button></a>
+            </td>
+            
+             <td>
+                <a th:href="@{/editorial/borradoEditorial/__${editorial.id}}__" <button type="button" class="btn btn-danger">Borrar</button></a>
             </td>
           </tr>
         </tbody>

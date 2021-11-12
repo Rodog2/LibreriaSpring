@@ -65,7 +65,12 @@ public class LibroServicio {
             throw new ErrorServicio("El titulo no puede estar vacio");
         }
         Libro libro= libroRepositorio.BuscarLibroPorNombre(titulo);
-        libroRepositorio.delete(libro);
+        if(libro.getTitulo().equalsIgnoreCase(titulo)){
+            libroRepositorio.delete(libro);
+        } else{
+            throw new ErrorServicio("El titulo no coincide con ningun libro registrado");
+        }
+        
     }
     
     public List<Libro> listarLibros(){
@@ -114,7 +119,7 @@ public class LibroServicio {
             throw new ErrorServicio("El año no puede estar vacío");
         }
         if(ejemplares==null){
-            throw new ErrorServicio("Los ejemplares no pueden cer 0");
+            throw new ErrorServicio("Los ejemplares no pueden ser 0");
         }
         if(nombreAutor==null){
             throw new ErrorServicio("Debe indicar un autor");

@@ -22,7 +22,7 @@ public class EditorialServicio {
         Editorial editorial = new Editorial();
         editorial.setNombre(nombre);
         editorial.setAlta(true);
-            editRepos.save(editorial);
+        editRepos.save(editorial);
     }
     @Transactional
     public void modificarEditorial(String idEditorial, String nombre) throws ErrorServicio{
@@ -39,20 +39,23 @@ public class EditorialServicio {
     @Transactional
     public void eliminarEditorial(String idEditorial) throws ErrorServicio{
         Optional<Editorial> respuesta = editRepos.findById(idEditorial);
+        Editorial editorial;
         if(respuesta.isPresent()){
-            Editorial editorial = respuesta.get();
-            editorial.setAlta(false);
+            editorial = respuesta.get();
         }else{
             throw new ErrorServicio("No existe la editorial a eliminar");
         }
+        editRepos.delete(editorial);
     }
     
-    public Editorial buscarEditorialPorNombre(String nombre) throws ErrorServicio{
-        validar(nombre);
-        Editorial editorial = editRepos.BuscarEditorialPorNombre(nombre);
+    public Editorial buscarEditorialPorNombre(String nombreEditorial) throws ErrorServicio{
+        validar(nombreEditorial);
+        Editorial editorial = editRepos.BuscarEditorialPorNombre(nombreEditorial);
         if(editorial ==null){
-           return null;
-        } else return editorial;
+           throw new ErrorServicio("La editorial no puede ser nula");
+        } else {
+            return editorial;
+        }
     }
      public List<Editorial> listarEditorial() throws ErrorServicio{
          
