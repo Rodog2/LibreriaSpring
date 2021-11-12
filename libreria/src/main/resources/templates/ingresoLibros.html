@@ -12,96 +12,82 @@
   <title>Libros</title>
 </head>
 
-<body id="bodyIngresoLibros" class="fondo-brur">
+<body id="bodyIngresoLibros" class="fondo-brur" background="../static/images/thumb-1920-389898.jpg">
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Volver a página principal</a>
     </div>
   </nav>
-  <div>
-    <img src="../static/images/liberia2.jpg" class="img-fluid">
-  </div>
+  <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../static/images/thumb-1920-389898.jpg" class="d-block w-100">
+      </div>
+    </div>
+  </div> -->
+  <div style="padding-top: 5em;">
 
-  <h2>Bienvenido a la sección de ingreso de libros nuevos</h1>
-  <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
-    <div class="container">
-      <div class="card card-container">
-        <form action="/libro/ingresarLibro"
-          method="post" class="row g-12 form-group col-sm-12 col-form-label text-center">
+  </div id="1">
+  <h2 style="background-color: rgb(116, 161, 116); color: rgb(207, 179, 179); padding-right:-10em;" >Bienvenido a la sección de ingreso de libros nuevos</h1>
+    <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
+   
+    <div class="section">
+        <form action="/libro/ingresarLibro" method="post"
+          class="row gy-3 gx-3 align-items-center">
 
-          <div class="col-md-6 form-group">
+          <div class="col-sm-6 form-group">
             <label for="validationDefault01" class="form-label text-lg col-md-12">Titulo del Libro</label>
-            <input type="text" class="form-control text-lg-end" id="validationDefault01" name="titulo" th:value="${titulo}">
+            <input type="text" class="form-control text-lg-end" id="validationDefault01" name="titulo"
+              th:value="${titulo}">
           </div>
 
-          <div class="col-md-6 form-group">
+          <div class="col-sm-6 form-group">
             <label for="validationDefault02" class="form-label">Código ISBN</label>
             <input type="text" class="form-control" id="validationDefault02" name="isbn" th:value="${isbn}">
           </div>
 
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <label for="validationDefault02" class="form-label">Año de Edicion</label>
             <input type="text" class="form-control" id="validationDefault02" name="anio" th:value="${anio}">
           </div>
 
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <label for="validationDefault02" class="form-label">Cantidad Ejemplares</label>
             <input type="text" class="form-control" id="validationDefault02" name="ejemplares" th:value="${ejemplares}">
           </div>
 
-          <div class="col-md-6">
-            <p style="text-align: center;">Autores Cargados</p>
-            <select class="form-select" name="nombreAutor" aria-label="Default select example">
-              <option selected th:each="autor: ${autores}" th:text="${autor.nombre}"></option>
-              <option>El autor no se encuentra en la lista</option>
-            </select>
+            <div class="col-sm-6">
+              <p style="text-align: center;" class="form-label">Autores Cargados</p>
+              <select class="form-select" name="nombreAutor" aria-label="Default select example">
+                <option selected th:each="autor: ${autores}" th:text="${autor.nombre}"></option>
+                <option>
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Nuevo Autor:</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm" name="nombreAutor" th:value="${nombreAutor}">
+                  </div>
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <p style="text-align: center;" class="form-label">Editoriales Cargadas</p>
+              <select class="form-select" name="nombreEditorial" aria-label="Default select example">
+                <option selected th:each="editorial : ${editoriales}" th:text="${editorial.nombre}"></option>
+                <option>
+                  <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">Nueva Editorial:</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                      aria-describedby="inputGroup-sizing-sm" name="nombreEditorial" th:value="${nombreEditorial}">
+                  </div>
+                </option>
+              </select>
+            </div>
           </div>
-
-          <div class="dropdown dropend col-md-6 opacity-100">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Cargar nuevo Autor
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <li>
-                <div class="col-md-6">
-                  <label for="validationDefault02" class="form-label">Nombre del autor</label>
-                  <input type="text" class="form-control" id="validationDefault02" name="nombreAutor"
-                    th:value="${nombreAutor}">
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-md-6">
-            <p style="text-align: center;">Editoriales Cargadas</p>
-            <select class="form-select" name="nombreEditorial" aria-label="Default select example">
-              <option selected th:each="editorial : ${editoriales}" th:text="${editorial.nombre}"></option>
-            </select>
-
-          </div>
-          <div class="dropdown dropend col-md-6">
-            <button class="btn btn-secondary dropdown-toggle lef" type="button" id="dropdownMenu2" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Cargar nueva Editorial</button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <li>
-                <div class="col-md-6">
-                  <label for="validationDefault02" class="form-label">Nombre de la editorial</label>
-                  <input type="text" class="form-control" id="validationDefault02" name="nombreEditorial"
-                    th:value="${nombreEditorial}">
-                </div>
-              </li>
-            </ul>
-          </div>
-
-
-          <div class="col-12">
-            <button class="btn btn-primary" type="submit">Cargar Libro</button>
+          <div class="col-auto" >
+            <button class="btn btn-primary bg-black" type="submit">Cargar Libro</button>
           </div>
         </form>
       </div>
-    </div>
 
 
 
