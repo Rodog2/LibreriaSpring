@@ -27,7 +27,7 @@
   </div> -->
   <div style="padding-top: 5em;">
 
-  </div id="1">
+  </div>
   <h2 style="background-color: rgb(116, 161, 116); color: rgb(207, 179, 179); padding-right:-10em;" >Bienvenido a la sección de ingreso de libros nuevos</h1>
     <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
    
@@ -59,7 +59,7 @@
             <div class="col-sm-6">
               <p style="text-align: center;" class="form-label">Autores Cargados</p>
               <select class="form-select" name="nombreAutor" aria-label="Default select example">
-                <option selected th:each="autor: ${autores}" th:text="${autor.nombre}"></option>
+                <option selected th:each="autor: ${autores}" th:text="${autor.nombre}" name="nombreAutor"></option>
                 <option>
                   <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-sm">Nuevo Autor:</span>

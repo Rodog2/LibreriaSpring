@@ -59,7 +59,7 @@ public class LibroControlador {
             return "ingresoLibros.html";
         }
     }
-    @GetMapping
+    @GetMapping("/listarLibros")
     public String listarLibros(ModelMap modelo){
         List<Libro> libros= libroServicio.listarLibros();
         modelo.put("libros", libros);
