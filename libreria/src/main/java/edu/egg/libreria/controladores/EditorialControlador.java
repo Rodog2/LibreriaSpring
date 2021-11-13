@@ -5,6 +5,7 @@ import edu.egg.libreria.entidades.Editorial;
 import edu.egg.libreria.errores.ErrorServicio;
 
 import edu.egg.libreria.servicios.EditorialServicio;
+import edu.egg.libreria.servicios.LibroServicio;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,8 @@ public class EditorialControlador {
 
     @Autowired
     private EditorialServicio editorialServicio;
+    @Autowired
+    private LibroServicio libroServicio;
    
     
      @GetMapping("/ingresarEditorial")
@@ -100,14 +103,13 @@ public class EditorialControlador {
             return "listarEditorial.html";
         }
     }
-//    @GetMapping("/borradoEditorial")
-//    public String borradoEditorial(){
-//        return "bajaEditorial.html";
-//    }
+
     @GetMapping("/borradoEditorial/{id}")
     public String borradoEditorial(ModelMap modelo, @PathVariable String id){
         try {
-            editorialServicio.eliminarEditorial(id);
+            Editorial editorial= libroServicio.verEditorialesAsignadas(id);
+            System.out.println(editorial.getNombre());
+            editorialServicio.eliminarEditorial(editorial.getId());
             modelo.put("titulo", "Se ha borrado la editorial correctamente");
             return "exito.html";
         } catch (ErrorServicio ex) {

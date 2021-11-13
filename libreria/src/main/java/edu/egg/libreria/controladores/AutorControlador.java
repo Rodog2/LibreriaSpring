@@ -5,6 +5,7 @@ import edu.egg.libreria.entidades.Autor;
 import edu.egg.libreria.errores.ErrorServicio;
 import edu.egg.libreria.repositorios.AutorRepositorio;
 import edu.egg.libreria.servicios.AutorServicio;
+import edu.egg.libreria.servicios.LibroServicio;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,7 @@ public class AutorControlador {
     @Autowired
     private AutorServicio autorServicio;
     @Autowired
-    private AutorRepositorio autorRepositorio;
-    
+    private LibroServicio libroServicio;
      @GetMapping("/ingresoAutores")
     public String ingresoAutor() {
         return "ingresoAutores.html";
@@ -100,33 +100,16 @@ public class AutorControlador {
             return "listarAutores.html";
         }
     }
-//     @PostMapping("/bajaAutores")
-//    public String baja(ModelMap modelo,@PathVariable String id){
-//       
-//        try {
-//            autorServicio.bajaAutorId(id);
-//            modelo.put("titulo","Se ha dado de baja el autor correctamente");
-//            return "/exito";
-//        } catch (ErrorServicio ex) {
-//            modelo.put("error", ex.getMessage());
-//            return "listarAutores.html";
-//        }
-//    }
-//    
-//      @PostMapping("/modificarAutor/{id}")
-//    public String modificar(ModelMap modelo, @PathVariable String id, @RequestParam String nombre) {
-//
-//        try {
-//            autorServicio.modificarAutor(id, nombre);
-//            modelo.put("exito", "Modificacion exitosa");
-//            List<Autor> autores = autorServicio.listarAutores();
-//            modelo.put("autores", autores);
-//            return "listaAutores.html";
-//        } catch (ErrorServicio ex) {
-//            modelo.put("error", "Falto algun dato");
-//            List<Autor> autores = autorServicio.listarAutores();
-//            modelo.put("autores", autores);
-//            return "listaAutores.html";
-//        }
-//    }
+     @GetMapping("/borradoAutor/{id}")
+    public String borradoAutor(ModelMap modelo, @PathVariable String id){
+        try {
+            Autor autor= libroServicio.verAutoresAsignados(id);
+            autorServicio.eliminarAutor(autor.getId());
+            modelo.put("titulo", "Se ha borrado el autor correctamente");
+            return "exito.html";
+        } catch (ErrorServicio ex) {
+            modelo.put("error", ex.getMessage());
+            return "listarAutores.html";
+        }
+    }
 }

@@ -57,6 +57,17 @@ public class AutorServicio {
             autor.setAlta(false);
         }
     }
+     @Transactional
+    public void eliminarAutor(String idAutor) throws ErrorServicio{
+        Optional<Autor> respuesta = autorRepositorio.findById(idAutor);
+        Autor autor;
+        if(respuesta.isPresent()){
+            autor = respuesta.get();
+        }else{
+            throw new ErrorServicio("No existe la editorial a eliminar");
+        }
+        autorRepositorio.delete(autor);
+    }
     @Transactional
     public void bajaAutorId(String id) throws ErrorServicio{
         Autor autor= new Autor();

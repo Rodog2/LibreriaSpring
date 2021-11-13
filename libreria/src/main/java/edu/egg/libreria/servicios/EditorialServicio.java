@@ -16,6 +16,7 @@ public class EditorialServicio {
 
     @Autowired
     private EditorialRepositorio editRepos;
+   
     @Transactional
     public void agregarEditorial(String nombre) throws ErrorServicio{
         validar(nombre);
@@ -37,8 +38,8 @@ public class EditorialServicio {
         }
     }
     @Transactional
-    public void eliminarEditorial(String idEditorial) throws ErrorServicio{
-        Optional<Editorial> respuesta = editRepos.findById(idEditorial);
+    public void eliminarEditorial(String id) throws ErrorServicio{
+        Optional<Editorial> respuesta = editRepos.findById(id);
         Editorial editorial;
         if(respuesta.isPresent()){
             editorial = respuesta.get();
@@ -107,5 +108,6 @@ public class EditorialServicio {
     }
         return editorial;
     }
+     
     
 }

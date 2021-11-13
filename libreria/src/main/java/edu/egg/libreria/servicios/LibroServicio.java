@@ -24,6 +24,7 @@ public class LibroServicio {
     private AutorServicio autorServicio;
     @Autowired
     private EditorialServicio editorialServicio;
+
     
     @Transactional
     public void cargarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, String nombreAutor, String nombreEditorial) throws ErrorServicio{
@@ -143,9 +144,35 @@ public class LibroServicio {
         }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
     }
     
+    public Editorial verEditorialesAsignadas(String idEditorial) throws ErrorServicio{
+        Editorial editorial = editorialServicio.buscarEditorialPorId(idEditorial);
+        List<Libro> listaLibros = listarLibros();
+        Integer cont= 0;
+        for (Libro aux : listaLibros) {
+            if(aux.getEditorial().getNombre().equals(editorial.getNombre())){
+                cont ++;
+            }
+        }
+        if(cont==0){
+            return editorial;
+        }else{
+                throw new ErrorServicio("No puede borrar La editorial selecionada, al encontrase asignada a un libro");
+            }
+        }
     
-    
-   
-    
-    
+     public Autor verAutoresAsignados(String idAutor) throws ErrorServicio{
+        Autor autor = autorServicio.buscarAutorPorId(idAutor);
+        List<Libro> listaLibros = listarLibros();
+        Integer cont= 0;
+        for (Libro aux : listaLibros) {
+            if(aux.getAutor().equals(autor)){
+                cont ++;
+            }
+        }
+        if(cont==0){
+            return autor;
+        }else{
+                throw new ErrorServicio("No puede borrar el autor al encontrase asignado a un libro");
+            }
+        }
 }
