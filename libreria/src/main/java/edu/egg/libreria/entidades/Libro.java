@@ -26,6 +26,8 @@ public class Libro {
     private Autor autor;
     @ManyToOne
     private Editorial editorial;
+    @ManyToOne
+    private Usuario usuario;
 
     /**
      * @return the id
@@ -165,6 +167,20 @@ public class Libro {
      */
     public void setEditorial(Editorial editorial) {
         this.editorial = editorial;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     

@@ -1,9 +1,10 @@
-h1{
-    font-family: 'Cambria';
-    font-style: italic;
-    font-stretch: expanded;
+ body{
+     font-family:Lato !important
 
-}
+    }
+    h1,h2,h3,h4,h5,h6{
+        font-family:Catamaran;font-weight:900 !important
+    }
 .bodyBaja{
     background-color: graytext
 }
@@ -11,22 +12,6 @@ h1{
     font-size: 0.5em;
 }
 
-navbar-custom{
- padding-top: 1rem;
- padding-bottom: 1rem;
- background-color: aqua;
-}
-
-.collapse navbar-collapse{
-    font-family: Verdana;
-    font-weight: 600;
-    font-style: italic;
-}
-
-.nav-item dropdown{
-    font-family: Verdana;
-    font-size: 3em;
-}
 .errorMensaje{
     color: red;
 }
@@ -76,3 +61,57 @@ navbar-custom{
     height: 36px;
     cursor: default;
 }
+.masthead{
+                position:relative;
+                overflow:hidden;
+                padding-top:calc(5rem + 50px);
+                padding-bottom:5rem;
+                background:linear-gradient(0deg,#6666ff 0,#0033ff 100%);
+}
+     
+.navbar-custom{
+    
+    padding-top:1rem;
+    padding-bottom:1rem;
+    background-color:rgba(0,0,0,.7);
+}
+.navbar-custom .navbar-brand{
+     border-right-style: groove;
+    border-color: #ff0066;
+    text-transform:uppercase;
+    font-size:1rem;
+    letter-spacing:.1rem;
+    font-weight:700;}
+.navbar-custom .navbar-nav .nav-item .nav-link{
+    border-right-style: groove;
+    border-color: #ff0066;
+    text-transform:uppercase;
+    font-size:.8rem;
+    font-weight:700;
+    letter-spacing:.1rem;}
+
+.form-control{
+    text-height: 2em;
+    font-size: 1em;
+    text-align: left;
+}
+.label{
+    border-radius: initial;
+    margin-left: auto;
+    background-color: activeborder;
+    background-color: black;
+    font-size: 1.5em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+    color: brown;
+    border: #ff0066;
+    border-color: aqua;
+    
+}
+
+.fondo1{
+    background-image: url(../images/thumb-1920-389898.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+

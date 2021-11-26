@@ -4,14 +4,18 @@ package edu.egg.libreria.controladores;
 import edu.egg.libreria.entidades.Autor;
 import edu.egg.libreria.entidades.Editorial;
 import edu.egg.libreria.entidades.Libro;
+import edu.egg.libreria.entidades.Usuario;
 import edu.egg.libreria.errores.ErrorServicio;
 import edu.egg.libreria.servicios.AutorServicio;
 import edu.egg.libreria.servicios.EditorialServicio;
 import edu.egg.libreria.servicios.LibroServicio;
+import edu.egg.libreria.servicios.UsuarioServicio;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,15 +34,21 @@ public class LibroControlador {
     @Autowired
     private EditorialServicio editorialServicio;
     
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+    
     @GetMapping("/ingresoLibro")
     public String ingresoLibro(ModelMap modelo){
+       
+            List<Autor> autores;
         try {
-            List<Autor> autores = autorServicio.listarAutores();
+            autores = autorServicio.listarAutores();
             List<Editorial> editoriales= editorialServicio.listarEditorial();
             modelo.put("autores", autores);
             modelo.put("editoriales", editoriales);
         } catch (ErrorServicio ex) {
-            
+            Logger.getLogger(LibroControlador.class.getName()).log(Level.SEVERE, null, ex);
+            return "redirect:/";
         }
         return "ingresoLibros.html";
     }
@@ -59,11 +69,35 @@ public class LibroControlador {
             return "ingresoLibros.html";
         }
     }
+    
     @GetMapping("/listarLibros")
-    public String listarLibros(ModelMap modelo){
+    public String listarLibros(ModelMap modelo, HttpSession session){
+        Usuario login = (Usuario) session.getAttribute("usuariosession");
+        Usuario usuario;
+        if(login==null){
+            usuario = new Usuario();
+            modelo.put("perfil", usuario);
+        }else{
+            try {
+                usuario= usuarioServicio.buscarPorID(login.getId());
+                modelo.put("perfil", usuario.getRol());
+                System.out.println(usuario.getRol());
+            } catch (ErrorServicio ex) {
+                Logger.getLogger(LibroControlador.class.getName()).log(Level.SEVERE, null, ex);
+                return "redirect:/inicio";
+            }
+        }
         List<Libro> libros= libroServicio.listarLibros();
         modelo.put("libros", libros);
         return "listarLibros.html";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/listarLibrosAdmin")
+    public String listarLibrosAdmin(ModelMap modelo){
+        List<Libro> libros= libroServicio.listarLibros();
+        modelo.put("libros", libros);
+        return "listarLibrosAdmin.html";
     }
     
     @GetMapping("/modificarLibro/{id}")
@@ -85,29 +119,27 @@ public class LibroControlador {
             return "modificarLibro.html";
         }
     }
-    @GetMapping("/bajaAutores/{id}")
+    @GetMapping("/bajaLibro/{id}")
     public String baja(ModelMap modelo,@PathVariable String id){
        
         try {
-            autorServicio.bajaAutorId(id);
-            modelo.put("titulo","Se ha dado de baja el autor correctamente");
-            return "/exito";
+            libroServicio.bajaLibroId(id);
         } catch (ErrorServicio ex) {
-            modelo.put("error", ex.getMessage());
-            return "listarAutores.html";
+             Logger.getLogger(LibroControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
+         return "redirect:/libro/listarLibros"; 
     }
-       @GetMapping("/altaAutores/{id}")
+       @GetMapping("/altaLibro/{id}")
     public String alta(ModelMap modelo,@PathVariable String id){
        
+        
         try {
-            autorServicio.altaAutorId(id);
-            modelo.put("titulo","Se ha dado de baja el autor correctamente");
-            return "/exito";
+            libroServicio.altaLibroId(id);
         } catch (ErrorServicio ex) {
-            modelo.put("error", ex.getMessage());
-            return "listarAutores.html";
+            Logger.getLogger(LibroControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
+         return "redirect:/libro/listarLibros"; 
+        
     }
     @GetMapping("/borradoLibro")
     public String borradoLibro(){
